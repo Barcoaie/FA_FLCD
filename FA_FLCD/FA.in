@@ -1,8 +1,10 @@
 S,A,B
 0,1
 S
-B
+S
 S,1 = A
 S,0 = S
-A,1 = A
+A,1 = S
 A,0 = B
+B,0 = A
+B,1 = B

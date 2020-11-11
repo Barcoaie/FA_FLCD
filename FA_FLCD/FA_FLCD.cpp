@@ -10,8 +10,9 @@ int main()
 	fa->readFile("FA.in");
 	int input;
 	bool ok = true;
-	std::string menu_options = "1. Finite Set of States\n2. Finite Alphabet\n3. Transitions\n4. Set Of Final States\n0. Exit\n";
+	std::string menu_options = "1. Finite Set of States\n2. Finite Alphabet\n3. Transitions\n4. Set Of Final States\n5. Check if a sequence is valid\n0. Exit\n";
 	std::cout << menu_options;
+	std::string sequence;
 	while (ok) {
 		std::cout << ">> ";
 		std::cin >> input;
@@ -31,17 +32,17 @@ int main()
 		case 4:
 			std::cout << fa->getSetOfFinalStates() << '\n';
 			break;
+		case 5:
+			std::cout << "Input sequence for DFA to check: ";
+			std::cin >> sequence;
+			fa->check(sequence);
+			break;
 		case 0:
 			ok = false;
 		default:
 			break;
 		}
 	}
-
-	std::string sequence;
-	std::cout << "Input sequence for DFA to check: ";
-	std::cin >> sequence;
-	fa->check(sequence);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

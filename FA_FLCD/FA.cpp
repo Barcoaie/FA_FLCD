@@ -31,6 +31,10 @@ void FA::readFile(std::string filename)
 		std::pair<char, int> pair;
 		pair.first = line[0];
 		pair.second = line[2] - '0';
+		if (transitions->find(pair) != transitions->end()) {
+			std::cout << "ba am gasit impostoru\n";
+			DFA = false;
+		}
 		transitions->emplace(pair, line[6]);
 	}
 	//std::cout << this->transitions << '\n';
@@ -58,12 +62,27 @@ std::map<std::pair<char, int>, char> FA::getTransitions()
 
 void FA::check(std::string sequence)
 {
-	int pos_seq, pos_map;
-	pos_map = 0;
+	if (DFA == false) {
+		std::cout << "this FA is not deterministic\n";
+		return;
+	}
+	int pos_seq;
+	char q = this->q0;
 	for (pos_seq = 0; pos_seq < sequence.size(); pos_seq++) {
 		std::cout << sequence[pos_seq] << '\n';
-		//still TODO
+		for (auto elem : *transitions) {
+			if (q == elem.first.first && elem.first.second == (sequence[pos_seq] - '0'))
+			{
+				q = elem.second;
+				break;
+			}
+		}
 	}
+	if (set_of_final_states.find(q) != std::string::npos) {
+		std::cout << "ended in final state -> valid" << "\n";
+	}
+	else
+		std::cout << "didn't end in a final state -> not valid" << "\n";
 }
 
 FA::~FA()
